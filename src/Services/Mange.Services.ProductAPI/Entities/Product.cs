@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Mange.Services.ProductAPI.Models
+namespace Mange.Services.ProductAPI.Entities
 {
     public class Product
     {

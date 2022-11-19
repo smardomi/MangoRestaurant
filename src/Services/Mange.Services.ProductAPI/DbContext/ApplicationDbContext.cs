@@ -1,4 +1,5 @@
-﻿using Mange.Services.ProductAPI.Models;
+﻿using Mange.Services.ProductAPI.Entities;
+using Mange.Services.ProductAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Mange.Services.ProductAPI.DbContext
