@@ -1,4 +1,5 @@
 using Mange.Services.ProductAPI.DbContext;
+using Mange.Services.ProductAPI.Middlewares;
 using Mange.Services.ProductAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 );
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<CustomExceptionHandlerMiddleware>();
 
 var app = builder.Build();
 
@@ -30,6 +32,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<CustomExceptionHandlerMiddleware>();
 
 app.MapControllers();
 
