@@ -4,19 +4,20 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace MangoRestaurant.Pages.Login;
-
-public class InputModel
+namespace Mange.Services.Identity.Pages.Login
 {
-    [Required]
-    public string Username { get; set; }
-        
-    [Required]
-    public string Password { get; set; }
-        
-    public bool RememberLogin { get; set; }
-        
-    public string ReturnUrl { get; set; }
+    public class InputModel
+    {
+        [Required]
+        public string Username { get; set; }
 
-    public string Button { get; set; }
+        [Required]
+        public string Password { get; set; }
+
+        public bool RememberLogin { get; set; }
+
+        public string ReturnUrl { get; set; }
+
+        public string Button { get; set; }
+    }
 }

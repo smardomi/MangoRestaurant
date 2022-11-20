@@ -1,35 +1,36 @@
 // Copyright (c) Duende Software. All rights reserved.
 // See LICENSE in the project root for license information.
 
-using System.ComponentModel.DataAnnotations;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
-namespace MangoRestaurant.Pages.Ciba;
-
-[SecurityHeaders]
-[Authorize]
-public class AllModel : PageModel
+namespace Mange.Services.Identity.Pages.Ciba
 {
-    public IEnumerable<BackchannelUserLoginRequest> Logins { get; set; }
-
-    [BindProperty, Required]
-    public string Id { get; set; }
-    [BindProperty, Required]
-    public string Button { get; set; }
-
-    private readonly IBackchannelAuthenticationInteractionService _backchannelAuthenticationInteraction;
-
-    public AllModel(IBackchannelAuthenticationInteractionService backchannelAuthenticationInteractionService)
+    [SecurityHeaders]
+    [Authorize]
+    public class AllModel : PageModel
     {
-        _backchannelAuthenticationInteraction = backchannelAuthenticationInteractionService;
-    }
+        public IEnumerable<BackchannelUserLoginRequest> Logins { get; set; }
 
-    public async Task OnGet()
-    {
-        Logins = await _backchannelAuthenticationInteraction.GetPendingLoginRequestsForCurrentUserAsync();
+        [BindProperty, Required]
+        public string Id { get; set; }
+        [BindProperty, Required]
+        public string Button { get; set; }
+
+        private readonly IBackchannelAuthenticationInteractionService _backchannelAuthenticationInteraction;
+
+        public AllModel(IBackchannelAuthenticationInteractionService backchannelAuthenticationInteractionService)
+        {
+            _backchannelAuthenticationInteraction = backchannelAuthenticationInteractionService;
+        }
+
+        public async Task OnGet()
+        {
+            Logins = await _backchannelAuthenticationInteraction.GetPendingLoginRequestsForCurrentUserAsync();
+        }
     }
 }
