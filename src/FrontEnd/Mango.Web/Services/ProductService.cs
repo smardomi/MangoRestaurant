@@ -1,0 +1,60 @@
+﻿using Mango.Web.Models;
+using Mango.Web.Services.IServices;
+
+namespace Mango.Web.Services
+{
+    public class ProductService : BaseService, IProductService
+    {
+        public ProductService(IHttpClientFactory httpClientFactory) : base(httpClientFactory)
+        {
+        }
+
+        public async Task<TEntity> GetAllProductsAsync<TEntity>()
+        {
+            return await SendAsync<TEntity>(new ApiRequest
+            {
+                ApiType = ApiUtil.ApiType.GET,
+                Url = ApiUtil.ProductAPIBase + "/products"
+            });
+        }
+
+        public async Task<TEntity> GetProductByIdAsync<TEntity>(int productId)
+        {
+            return await SendAsync<TEntity>(new ApiRequest
+            {
+                ApiType = ApiUtil.ApiType.GET,
+                Url = ApiUtil.ProductAPIBase + "/products/" + productId
+            });
+        }
+
+        public async Task<TEntity> CreateProductAsync<TEntity>(ProductDto product)
+        {
+            return await SendAsync<TEntity>(new ApiRequest
+            {
+                ApiType = ApiUtil.ApiType.POST,
+                Url = ApiUtil.ProductAPIBase + "/products",
+                Data = product
+            });
+        }
+
+        public async Task<TEntity> UpdateProductAsync<TEntity>(ProductDto product)
+        {
+            return await SendAsync<TEntity>(new ApiRequest
+            {
+                ApiType = ApiUtil.ApiType.PUT,
+                Url = ApiUtil.ProductAPIBase + "/products",
+                Data = product
+            });
+        }
+
+        public async Task<TEntity> DeleteProductAsync<TEntity>(int productId)
+        {
+            return await SendAsync<TEntity>(new ApiRequest
+            {
+                ApiType = ApiUtil.ApiType.DELETE,
+                Url = ApiUtil.ProductAPIBase + "/products",
+                Data = productId
+            });
+        }
+    }
+}
