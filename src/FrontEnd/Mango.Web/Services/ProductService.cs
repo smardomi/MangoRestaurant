@@ -18,7 +18,7 @@ namespace Mango.Web.Services
             });
         }
 
-        public async Task<ProductDto> GetProductByIdAsync(int productId)
+        public async Task<ProductDto?> GetProductByIdAsync(int productId)
         {
             return await SendAsync<ProductDto>(new ApiRequest
             {
@@ -27,13 +27,14 @@ namespace Mango.Web.Services
             });
         }
 
-        public async Task<ProductDto> CreateProductAsync(ProductDto product)
+        public async Task<ProductDto> CreateProductAsync(ProductDto product, string? accessToken)
         {
             return await SendAsync<ProductDto>(new ApiRequest
             {
                 ApiType = ApiUtil.ApiType.POST,
                 Url = ApiUtil.ProductAPIBase + "/products",
-                Data = product
+                Data = product,
+                AccessToken = accessToken
             });
         }
 
