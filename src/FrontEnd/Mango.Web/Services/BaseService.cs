@@ -15,12 +15,12 @@ namespace Mango.Web.Services
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<T> SendAsync<T>(ApiRequest request)
+        public async Task<T> SendAsync<T>(ApiRequest request) 
         {
             var client = _httpClientFactory.CreateClient("Mango");
             HttpRequestMessage message = new HttpRequestMessage();
             message.Headers.Add("Accept", "application/json");
-            message.Headers.Add("Content-Type", "application/json");
+            //message.Headers.Add("Content-Type", "application/json");
             message.RequestUri = new Uri(request.Url);
             client.DefaultRequestHeaders.Clear();
             if (request.Data != null)
@@ -40,8 +40,9 @@ namespace Mango.Web.Services
 
             response = await client.SendAsync(message);
             var apiContent = await response.Content.ReadAsStringAsync();
-            var apiResultDto = JsonSerializer.Deserialize<T>(apiContent);
-            return apiResultDto;
+            var apiResultDto = JsonSerializer.Deserialize<ApiResult<T>>(apiContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            return apiResultDto.Data;
         }
 
         public void Dispose()

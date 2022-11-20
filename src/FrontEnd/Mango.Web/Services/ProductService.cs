@@ -9,27 +9,27 @@ namespace Mango.Web.Services
         {
         }
 
-        public async Task<TEntity> GetAllProductsAsync<TEntity>()
+        public async Task<List<ProductDto>> GetAllProductsAsync()
         {
-            return await SendAsync<TEntity>(new ApiRequest
+            return await SendAsync<List<ProductDto>>(new ApiRequest
             {
                 ApiType = ApiUtil.ApiType.GET,
                 Url = ApiUtil.ProductAPIBase + "/products"
             });
         }
 
-        public async Task<TEntity> GetProductByIdAsync<TEntity>(int productId)
+        public async Task<ProductDto> GetProductByIdAsync(int productId)
         {
-            return await SendAsync<TEntity>(new ApiRequest
+            return await SendAsync<ProductDto>(new ApiRequest
             {
                 ApiType = ApiUtil.ApiType.GET,
                 Url = ApiUtil.ProductAPIBase + "/products/" + productId
             });
         }
 
-        public async Task<TEntity> CreateProductAsync<TEntity>(ProductDto product)
+        public async Task<ProductDto> CreateProductAsync(ProductDto product)
         {
-            return await SendAsync<TEntity>(new ApiRequest
+            return await SendAsync<ProductDto>(new ApiRequest
             {
                 ApiType = ApiUtil.ApiType.POST,
                 Url = ApiUtil.ProductAPIBase + "/products",
@@ -37,9 +37,9 @@ namespace Mango.Web.Services
             });
         }
 
-        public async Task<TEntity> UpdateProductAsync<TEntity>(ProductDto product)
+        public async Task<ProductDto> UpdateProductAsync(ProductDto product)
         {
-            return await SendAsync<TEntity>(new ApiRequest
+            return await SendAsync<ProductDto>(new ApiRequest
             {
                 ApiType = ApiUtil.ApiType.PUT,
                 Url = ApiUtil.ProductAPIBase + "/products",
@@ -47,9 +47,9 @@ namespace Mango.Web.Services
             });
         }
 
-        public async Task<TEntity> DeleteProductAsync<TEntity>(int productId)
+        public async Task<bool> DeleteProductAsync(int productId)
         {
-            return await SendAsync<TEntity>(new ApiRequest
+            return await SendAsync<bool>(new ApiRequest
             {
                 ApiType = ApiUtil.ApiType.DELETE,
                 Url = ApiUtil.ProductAPIBase + "/products",
