@@ -9,21 +9,23 @@ namespace Mango.Web.Services
         {
         }
 
-        public async Task<List<ProductDto>> GetAllProductsAsync()
+        public async Task<List<ProductDto>> GetAllProductsAsync(string? accessToken)
         {
             return await SendAsync<List<ProductDto>>(new ApiRequest
             {
                 ApiType = ApiUtil.ApiType.GET,
-                Url = ApiUtil.ProductAPIBase + "/products"
+                Url = ApiUtil.ProductAPIBase + "/products",
+                AccessToken = accessToken
             });
         }
 
-        public async Task<ProductDto?> GetProductByIdAsync(int productId)
+        public async Task<ProductDto?> GetProductByIdAsync(int productId, string? accessToken)
         {
             return await SendAsync<ProductDto>(new ApiRequest
             {
                 ApiType = ApiUtil.ApiType.GET,
-                Url = ApiUtil.ProductAPIBase + "/products/" + productId
+                Url = ApiUtil.ProductAPIBase + "/products/" + productId,
+                AccessToken = accessToken
             });
         }
 
@@ -38,23 +40,25 @@ namespace Mango.Web.Services
             });
         }
 
-        public async Task<ProductDto> UpdateProductAsync(ProductDto product)
+        public async Task<ProductDto> UpdateProductAsync(ProductDto product, string? accessToken)
         {
             return await SendAsync<ProductDto>(new ApiRequest
             {
                 ApiType = ApiUtil.ApiType.PUT,
                 Url = ApiUtil.ProductAPIBase + "/products",
-                Data = product
+                Data = product,
+                AccessToken = accessToken
             });
         }
 
-        public async Task<bool> DeleteProductAsync(int productId)
+        public async Task<bool> DeleteProductAsync(int productId, string? accessToken)
         {
             return await SendAsync<bool>(new ApiRequest
             {
                 ApiType = ApiUtil.ApiType.DELETE,
                 Url = ApiUtil.ProductAPIBase + "/products",
-                Data = productId
+                Data = productId,
+                AccessToken = accessToken
             });
         }
     }

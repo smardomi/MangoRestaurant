@@ -1,7 +1,9 @@
 ﻿using Mango.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace Mango.Web.Controllers
 {
@@ -27,13 +29,13 @@ namespace Mango.Web.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var exceptionHandlerPathFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier ,Message = exceptionHandlerPathFeature.Error.Message});
         }
 
         [Authorize]
         public async Task<IActionResult> Login()
         {
-
             return RedirectToAction(nameof(Index));
         }
 

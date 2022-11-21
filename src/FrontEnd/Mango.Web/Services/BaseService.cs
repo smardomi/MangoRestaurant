@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Net;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 using Mango.Web.Models;
 using Mango.Web.Services.IServices;
@@ -25,6 +27,11 @@ namespace Mango.Web.Services
                 message.Content = new StringContent(JsonSerializer.Serialize(request.Data), Encoding.UTF8, "application/json");
             }
 
+            if (!string.IsNullOrWhiteSpace(request.AccessToken))
+            {
+                message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", request.AccessToken);
+            }
+
             HttpResponseMessage? response = null;
             message.Method = request.ApiType switch
             {
@@ -36,15 +43,20 @@ namespace Mango.Web.Services
             };
 
             response = await client.SendAsync(message);
-            var apiContent = await response.Content.ReadAsStringAsync();
-            var apiResultDto = JsonSerializer.Deserialize<ApiResult<T>>(apiContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-            if (apiResultDto.IsSuccess)
+            if (response.IsSuccessStatusCode)
             {
-                return apiResultDto.Data;
-            }
+                var apiContent = await response.Content.ReadAsStringAsync();
+                var apiResultDto = JsonSerializer.Deserialize<ApiResult<T>>(apiContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-            throw new Exception(apiResultDto.Message);
+                if (apiResultDto.IsSuccess)
+                {
+                    return apiResultDto.Data;
+                }
+                throw new Exception(apiResultDto.Message);
+            }
+            
+            throw new Exception(response.ReasonPhrase);
 
         }
 

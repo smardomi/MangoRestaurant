@@ -1,12 +1,14 @@
 ﻿using Mange.Services.ProductAPI.Filters;
 using Mange.Services.ProductAPI.Models;
 using Mange.Services.ProductAPI.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mange.Services.ProductAPI.Controllers
 {
     [ApiController]
     [ApiResultFilter]
+    [Authorize]
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
@@ -30,6 +32,7 @@ namespace Mange.Services.ProductAPI.Controllers
         public async Task<ActionResult<ProductDto>> UpdateProduct(ProductDto product) => Ok(await _productRepository.CreateUpdateProduct(product));
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteProduct(int productId) => Ok(await _productRepository.DeleteProduct(productId));
     }
 }
