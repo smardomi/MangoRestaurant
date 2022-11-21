@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Mange.Services.Identity.Pages.Logout
+namespace Mange.Services.Identity.Pages.Account.Logout
 {
     [SecurityHeaders]
     [AllowAnonymous]

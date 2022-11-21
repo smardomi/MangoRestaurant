@@ -1,9 +1,9 @@
 
-namespace Mange.Services.Identity.Pages.Logout
+namespace Mange.Services.Identity.Pages.Account.Logout
 {
     public class LogoutOptions
     {
         public static bool ShowLogoutPrompt = true;
-        public static bool AutomaticRedirectAfterSignOut = false;
+        public static bool AutomaticRedirectAfterSignOut = true;
     }
 }

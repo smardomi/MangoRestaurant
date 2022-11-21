@@ -3,7 +3,7 @@
 // See LICENSE in the project root for license information.
 
 
-namespace Mange.Services.Identity.Pages.Logout
+namespace Mange.Services.Identity.Pages.Account.Logout
 {
     public class LoggedOutViewModel
     {

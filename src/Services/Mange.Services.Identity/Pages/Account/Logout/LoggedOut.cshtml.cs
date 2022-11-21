@@ -2,7 +2,7 @@ using Duende.IdentityServer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Mange.Services.Identity.Pages.Logout
+namespace Mange.Services.Identity.Pages.Account.Logout
 {
     [SecurityHeaders]
     [AllowAnonymous]
